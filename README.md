@@ -16,7 +16,7 @@ The idea is to create an application in Node.js where the user registers a movie
 
 ## Database Diagram
 
-![Diagram image](https://ibb.co/s2H5h9n)
+![Diagram image](https://github.com/FranciscoYlderlan/API/blob/main/Documentation/images/diagram-db.png?raw=true)
 
 
 ## 🚀 About me
