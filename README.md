@@ -1,4 +1,5 @@
 
+
 # Backend - Movie rating application 
 
 The idea is to create an application in Node.js where the user registers a movie, fills some information like (name, description, note) and creates tags related to it.
@@ -13,6 +14,11 @@ The idea is to create an application in Node.js where the user registers a movie
 - Pratice async functions
 
 
+## Database Diagram
+
+![Diagram image](https://ibb.co/s2H5h9n)
+
+
 ## 🚀 About me
 I'm a web programmer...
 
@@ -24,4 +30,6 @@ I'm a web programmer...
 ## Author
 
 - [@FranciscoYlderlan](https://www.github.com/FranciscoYlderlan)
+
+
 
