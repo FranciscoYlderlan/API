@@ -14,4 +14,4 @@ usersRoutes.post("/create", (request, response) => {
     response.send({id, name, email, password, avatar});
 });
 
-export {usersRoutes} ;
+export default usersRoutes;
