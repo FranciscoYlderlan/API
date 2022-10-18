@@ -1,6 +1,9 @@
 import { Router } from "express"
+import UsersController from "../controllers/UsersController.js";
 
 const usersRoutes = Router();
+
+const usersController = new UsersController();
 
 usersRoutes.get("/:id", (request, response) => {
     const {id} = request.params;
@@ -8,10 +11,6 @@ usersRoutes.get("/:id", (request, response) => {
 });
 
 
-usersRoutes.post("/create", (request, response) => {
-    const {id, name, email, password, avatar} = request.body;
-    
-    response.send({id, name, email, password, avatar});
-});
+usersRoutes.post("/create",  usersController.create);
 
 export default usersRoutes;
