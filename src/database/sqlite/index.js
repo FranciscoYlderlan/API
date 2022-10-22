@@ -1,14 +1,13 @@
 import * as sqlite from "sqlite";
 import sqlite3 from "sqlite3";
+import Path from "../../utils/Path.js";
 import path from 'path';
-import {fileURLToPath} from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const dir = new Path();
 
 export default async function sqliteConnection() {
     const database = await sqlite.open({
-        filename: path.resolve(__dirname, "..", "database.db"),
+        filename: path.resolve(dir.dirname(), "..", "database.db"),
         driver: sqlite3.Database
     })
     return database;
