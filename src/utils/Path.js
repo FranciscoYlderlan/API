@@ -4,8 +4,8 @@ import {fileURLToPath} from 'url';
 export default class Path {
     constructor() {}
 
-    dirname() {
-        const __filename = fileURLToPath(import.meta.url);
+    dirname(url) {
+        const __filename = fileURLToPath(url);
         const __dirname = path.dirname(__filename);
         return __dirname;
     }

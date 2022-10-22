@@ -7,7 +7,7 @@ const dir = new Path();
 
 export default async function sqliteConnection() {
     const database = await sqlite.open({
-        filename: path.resolve(dir.dirname(), "..", "database.db"),
+        filename: path.resolve(dir.dirname(import.meta.url), "..", "database.db"),
         driver: sqlite3.Database
     })
     return database;
