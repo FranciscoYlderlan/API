@@ -1,7 +1,7 @@
 import path from 'path';
 import {fileURLToPath} from 'url';
 
-export default class Path {
+class Path {
     constructor() {}
 
     dirname(url) {
@@ -10,3 +10,5 @@ export default class Path {
         return __dirname;
     }
 }
+
+export default new Path();
