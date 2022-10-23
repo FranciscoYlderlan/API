@@ -1,5 +1,5 @@
-import config from "../../../knexfile.cjs"
-import * as knex from "knex"
+import config from "../../../knexfile.js"
+import knex from "knex"
 
 const connection = knex(config.development);
 
