@@ -1,5 +1,6 @@
 
-export function up(knex)  { return knex.schema.createTable('users', table => {
+export function up(knex) { 
+    return knex.schema.createTable('Users', table => {
         table.increments('id').unsigned().primary();
         table.string('name').notNull();
         table.string('email').nullable();
@@ -10,7 +11,6 @@ export function up(knex)  { return knex.schema.createTable('users', table => {
     });     
 }
 
-
-
-
-export function down(knex) { return knex.schema.dropTable('users'); }
+export function down(knex) { 
+    return knex.schema.dropTable('Users'); 
+}
