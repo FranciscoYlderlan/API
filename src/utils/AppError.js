@@ -3,11 +3,18 @@ export default class AppError {
         this.description = description;
         this.statusCode = statusCode;
     }
-    message() {
+    static ServerErrorMessage() {
+        return {
+            status: "error",
+            message: "Internal server error"
+        }
+    }
+    Message() {
         return {
             status: "error",
             message: this.description
         }
     }
+    
 }
 

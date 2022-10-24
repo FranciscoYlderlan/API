@@ -4,7 +4,6 @@ import Path from "../../utils/Path.js";
 import path from 'path';
 
 
-
 export default async function sqliteConnection() {
     const database = await sqlite.open({
         filename: path.resolve(Path.dirname(import.meta.url), "..", "database.db"),

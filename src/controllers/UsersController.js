@@ -20,26 +20,20 @@ export default class UsersController {
     }
     async create(request, response) {
         const {id, name, email, password, avatar} = request.body;
-        
         const users = () => knex('Users');
-        
-        const encrypted_password = await hash(password,8);
-        
+
         const existsName = await users().where({ name }).first();
+        if(existsName) throw new AppError("Nome de usuário em uso.");
         
         const existsEmail = await users().where({ email }).first();
+        if(existsEmail) throw new AppError("Email de usuário em uso.");
 
-        if(existsName) {
-            throw new AppError("Nome de usuário em uso. Por favor informe novo usuário.")
-        }
-        if(existsEmail) {
-            throw new AppError("Email de usuário em uso. Por favor informe novo email.")
-        }
+        const encryptPassword = await hash(password,8);
 
-        const id_user = await users().insert({
+        await users().insert({
             name,
             email,
-            password: encrypted_password,
+            password: encryptPassword,
             avatar,
             updated_at: knex.fn.now(),
             created_at: knex.fn.now()
