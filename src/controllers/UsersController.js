@@ -23,6 +23,10 @@ export default class UsersController {
         const {id, name, email, password, avatar} = request.body;
         const Tusers = () => knex('Users');
         
+        if(!name) throw new AppError('Campo nome é obrigatório.');
+        if(!email) throw new AppError('Campo email é obrigatório.');
+        if(!password) throw new AppError('Campo senha é obrigatório.');
+
         const existsEmail = await Tusers().where({ email }).first();
         if(existsEmail) throw new AppError('Email de usuário em uso.');
 
@@ -45,13 +49,13 @@ export default class UsersController {
         const Tusers = () => knex("Users");
 
         const user = await Tusers().where({id}).first();
-        if(!user) throw new AppError('Usuário não encontrado.');
+        if(!user) throw new AppError('Usuário não cadastrado.');
         
         user.name = name ?? user.name;
         user.email = email ?? user.email;
         user.avatar = avatar ?? user.avatar;
     
-        
+        console.error(user)
         if(password){
             const validPassword = await compare(password, user.password);
             if(!validPassword) throw new AppError('A senha informada é inválida.');
