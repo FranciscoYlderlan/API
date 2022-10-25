@@ -25,9 +25,9 @@ export default class NotesController {
         const Tnotes = () =>  knex('MovieNotes');
         const Tusers = () =>  knex('Users');
 
-        const existUser = await Tusers().where({id:user_id}).first();
+        const existsUser = await Tusers().where({id:user_id}).first();
 
-        if(!existUser) throw new AppError('Usuário não cadastrado.');
+        if(!existsUser) throw new AppError('Usuário não cadastrado.');
         if(!title) throw new AppError('Campo título é obrigatório.');
         if(!rating) throw new AppError('Campo nota é obrigatório.');
 
