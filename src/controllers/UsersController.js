@@ -7,15 +7,17 @@ export default class UsersController {
 
     async index(request, response) {
         const Tusers = () => knex("Users"); 
-        const users = await Tusers().select('name', 'email', 'avatar');
+        const users = await Tusers().select();
         response.status(200).json({users})
     }
-
     async show(request, response) {
-        const {id, name, email, password, avatar} = request.body;
-        
+        const {id} = request.params;
+        const Tusers = () => knex('Users');
+
+        const user = await Tusers().where({id}).first()
+
      
-        response.status(200).json({})
+        response.status(200).json(user)
     }
     async create(request, response) {
         const {id, name, email, password, avatar} = request.body;
@@ -60,6 +62,7 @@ export default class UsersController {
         user.password = newPassword? await hash(newPassword,8) : await hash(password,8);
 
         const unavailableEmail = await Tusers().whereNot({id}).where({email: user.email}).first();
+        
         if(unavailableEmail) throw new AppError('Email de usuário em uso.');
         
 
@@ -74,14 +77,13 @@ export default class UsersController {
 
         response.status(200).json({})
     }
-
     async delete(request, response) {
         const {id} = request.params;
         const Tusers = () => knex("Users"); 
         
         await Tusers().where({id}).delete();
      
-        response.status(204).json({})
+        response.status(200).json({})
     }
 }
 
