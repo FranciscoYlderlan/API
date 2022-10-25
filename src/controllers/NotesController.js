@@ -3,10 +3,10 @@ import AppError from "../utils/AppError.js";
 
 export default class NotesController {
     async index (request, response){
-
+        const {user_id} = request.params;
         const Tnotes = () =>  knex('MovieNotes');
-        const notes = Tnotes().select();
-        
+        const notes = await Tnotes().where({user_id});
+
         response.status(200).json(notes);       
     }
     async show (request, response){
@@ -47,18 +47,18 @@ export default class NotesController {
 
     }
     async update (request, response){
-        const {id ,user_id} = request.params; 
+        const {id} = request.params; 
         const {title, description, rating} = request.body;
         const Tnotes = () =>  knex('MovieNotes');
 
-        const note = await Tnotes().where({id,user_id}).first();
+        const note = await Tnotes().where({id}).first();
         if(!note) throw new AppError('Nota não cadastrada.');
 
         note.title = title ?? note.title;
         note.description = description ?? note.description;
         note.rating = rating ?? note.rating;
 
-        await Tnotes().update({
+        await Tnotes().where({id}).update({
             title: note.title,
             description: note.description,
             rating: note.rating,
