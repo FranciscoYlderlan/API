@@ -33,9 +33,7 @@ export default class TagsController {
 
         await Ttags().insert({
             name,
-            note_id,
-            created_at: knex.fn.now(),
-            updated_at: knex.fn.now()
+            note_id
         });
 
         response.status(200).json({});
@@ -54,8 +52,7 @@ export default class TagsController {
         tag.name = name?? tag.name;
         
         await Ttags().where({id}).update({
-            name: tag.name,
-            updated_at: knex.fn.now()
+            name: tag.name
         });
         response.status(200).json({});
 

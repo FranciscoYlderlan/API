@@ -55,7 +55,6 @@ export default class UsersController {
         user.email = email ?? user.email;
         user.avatar = avatar ?? user.avatar;
     
-        console.error(user)
         if(password){
             const validPassword = await compare(password, user.password);
             if(!validPassword) throw new AppError('A senha informada é inválida.');

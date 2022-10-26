@@ -7,7 +7,7 @@ const tagsController = new TagsController();
 tagsRoutes.get('/:note_id',tagsController.index);
 tagsRoutes.get('/show/:id',tagsController.show);
 tagsRoutes.post('/:note_id',tagsController.create);
-tagsRoutes.update('/:id',tagsController.update);
+tagsRoutes.put('/:id',tagsController.update);
 tagsRoutes.delete('/:id',tagsController.delete);
 
 export default tagsRoutes;

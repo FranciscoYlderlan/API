@@ -6,15 +6,23 @@ export default class NotesController {
         const {user_id} = request.params;
         const Tnotes = () =>  knex('MovieNotes');
         const notes = await Tnotes().where({user_id});
+        
 
         response.status(200).json(notes);       
     }
     async show (request, response){
         const {id} = request.params
         const Tnotes = () =>  knex('MovieNotes');
+        const Ttags = () =>  knex('MovieTags');
 
-        const note = await Tnotes().where({id}).first();
-
+        let note = await Tnotes().where({id}).first();
+        
+        if(!note) throw new AppError("Nota não cadastrada.");
+        
+        const tags = await Ttags().where({note_id:note.id});
+        note = {...note,
+                   tags
+               }
         response.status(200).json(note);
 
     }
