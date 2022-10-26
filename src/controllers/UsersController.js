@@ -2,24 +2,22 @@ import knex from "../database/knex/index.js"
 import {hash, compare} from "bcrypt"
 import AppError from "../utils/AppError.js";
 
-
 export default class UsersController {
-
-    async index(request, response) {
+    async index(request, response){
         const Tusers = () => knex("Users"); 
         const users = await Tusers().select();
         response.status(200).json({users})
     }
-    async show(request, response) {
+    async show(request, response){
         const {id} = request.params;
         const Tusers = () => knex('Users');
 
         const user = await Tusers().where({id}).first()
 
-     
+        
         response.status(200).json(user)
     }
-    async create(request, response) {
+    async create(request, response){
         const {id, name, email, password, avatar} = request.body;
         const Tusers = () => knex('Users');
         
@@ -43,7 +41,7 @@ export default class UsersController {
 
         response.status(201).json({});
     }
-    async update(request, response) {
+    async update(request, response){
         const {id} = request.params;
         const {password, newPassword, name, email, avatar} = request.body;
         const Tusers = () => knex("Users");
@@ -80,7 +78,7 @@ export default class UsersController {
 
         response.status(200).json({})
     }
-    async delete(request, response) {
+    async delete(request, response){
         const {id} = request.params;
         const Tusers = () => knex("Users"); 
         

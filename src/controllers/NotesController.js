@@ -1,16 +1,16 @@
 import knex from "../database/knex/index.js"
 import AppError from "../utils/AppError.js";
 
+
 export default class NotesController {
-    async index (request, response){
+    async index(request, response){
         const {user_id} = request.params;
         const Tnotes = () =>  knex('MovieNotes');
         const notes = await Tnotes().where({user_id});
         
-
         response.status(200).json(notes);       
     }
-    async show (request, response){
+    async show(request, response){
         const {id} = request.params
         const Tnotes = () =>  knex('MovieNotes');
         const Ttags = () =>  knex('MovieTags');
@@ -26,7 +26,7 @@ export default class NotesController {
         response.status(200).json(note);
 
     }
-    async create (request, response){
+    async create(request, response){
         const {user_id} = request.params; 
         const {id, title, description, rating} = request.body;
         
@@ -54,7 +54,7 @@ export default class NotesController {
         response.status(200).json({})
 
     }
-    async update (request, response){
+    async update(request, response){
         const {id} = request.params; 
         const {title, description, rating} = request.body;
         const Tnotes = () =>  knex('MovieNotes');
@@ -75,7 +75,7 @@ export default class NotesController {
 
         response.status(200).json({});
     }
-    async delete (request, response){
+    async delete(request, response){
         const {id} = request.params
         const Tnotes = () =>  knex('MovieNotes');
         

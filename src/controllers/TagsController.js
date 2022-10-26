@@ -1,6 +1,7 @@
 import knex from "../database/knex/index.js"
 import AppError from "../utils/AppError.js";
 
+
 export default class TagsController {
     async index(request, response){
         const {note_id} = request.params;
