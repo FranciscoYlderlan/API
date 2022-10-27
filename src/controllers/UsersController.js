@@ -10,11 +10,30 @@ export default class UsersController {
     }
     async show(request, response){
         const {id} = request.params;
-        const Tusers = () => knex('Users');
-
-        const user = await Tusers().where({id}).first()
-
         
+        const Tusers = () => knex('Users');
+        const Tnotes = () =>  knex('MovieNotes');
+        const Ttags = () =>  knex('MovieTags');
+
+        let user = await Tusers().where({id}).first();
+
+        const notes = await Tnotes().where({user_id: id});
+        
+        const notesIds = notes.map(note => note.id); 
+        
+        const tags = await Ttags().whereIn('note_id', notesIds);
+
+        const notesWithTags = notes.map(note => ({
+            ...note,
+            tags: tags.filter(tag => tag.note_id == note.id)
+        }));
+
+        user = {
+            ...user,
+            notes: notesWithTags
+        }
+
+
         response.status(200).json(user)
     }
     async create(request, response){

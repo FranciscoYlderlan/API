@@ -18,7 +18,7 @@ export default class NotesController {
         const notesWithTags = notes.map(note => ({
             ...note,
             tags: tags.filter(tag => tag.note_id == note.id)
-        }))
+        }));
         
         response.status(200).json(notesWithTags);       
     }
