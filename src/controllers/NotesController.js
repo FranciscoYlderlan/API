@@ -5,10 +5,22 @@ import AppError from "../utils/AppError.js";
 export default class NotesController {
     async index(request, response){
         const {user_id} = request.params;
+
         const Tnotes = () =>  knex('MovieNotes');
+        const Ttags = () =>  knex('MovieTags');
+        
         const notes = await Tnotes().where({user_id});
         
-        response.status(200).json(notes);       
+        const notesIds = notes.map(note => note.id); 
+        
+        const tags = await Ttags().whereIn('note_id', notesIds);
+
+        const notesWithTags = notes.map(note => ({
+            ...note,
+            tags: tags.filter(tag => tag.note_id == note.id)
+        }))
+        
+        response.status(200).json(notesWithTags);       
     }
     async show(request, response){
         const {id} = request.params
