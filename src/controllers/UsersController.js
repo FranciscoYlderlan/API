@@ -4,9 +4,28 @@ import AppError from "../utils/AppError.js";
 
 export default class UsersController {
     async index(request, response){
-        const Tusers = () => knex("Users"); 
-        const users = await Tusers().select();
-        response.status(200).json({users})
+        const Tusers = () => knex('Users');
+        const Tnotes = () =>  knex('MovieNotes');
+        const Ttags = () =>  knex('MovieTags');
+        
+        let users = await Tusers().select();
+        
+        users = await Promise.all(users.map(async user => {
+            let notes = await Tnotes().where({user_id: user.id});
+            const notesWithTags = await Promise.all(notes.map(async note => {
+                const tags = await Ttags().where({note_id: note.id});
+                return {
+                    ...note,
+                    tags
+                };
+            }));
+            return {
+                ...user,
+                notes: notesWithTags
+            };
+        }));
+
+        response.status(200).json(users)
     }
     async show(request, response){
         const {id} = request.params;
