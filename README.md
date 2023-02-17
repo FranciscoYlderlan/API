@@ -2,7 +2,7 @@
 
 # Backend - Movie rating application 
 
-The idea is to create an application in Node.js where the user registers a movie, fills some information like (name, description, note) and creates tags related to it.
+The idea is to create an application in Node.js environment where the user registers a movie, fills some information like (name, description, note) and creates tags related to it.
 
 
 ## Porpuse learning
