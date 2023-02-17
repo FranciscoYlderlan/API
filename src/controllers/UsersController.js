@@ -80,7 +80,7 @@ export default class UsersController {
         response.status(201).json({});
     }
     async update(request, response){
-        const {id} = request.params;
+        const id = request.user.id;
         const {password, newPassword, name, email, avatar} = request.body;
         const Tusers = () => knex("Users");
 

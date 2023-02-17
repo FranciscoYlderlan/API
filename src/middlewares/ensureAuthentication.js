@@ -19,7 +19,7 @@ export default function ensureAuthentication(request, response, next) {
             id: Number(user_id)
         }
        
-       return next()
+       return next();
     } catch (error) {
         throw new AppError("JWT Token inválido", 401);
     }

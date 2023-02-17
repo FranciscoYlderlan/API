@@ -1,8 +1,11 @@
 import Router from 'express'
 import TagsController from '../controllers/TagsController.js'
+import ensureAuthentication from '../middlewares/ensureAuthentication.js';
 
 const tagsRoutes = Router();
 const tagsController = new TagsController();
+
+tagsRoutes.use(ensureAuthentication);
 
 tagsRoutes.get('/:note_id',tagsController.index);
 tagsRoutes.get('/show/:id',tagsController.show);

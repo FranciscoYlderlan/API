@@ -4,7 +4,7 @@ import AppError from "../utils/AppError.js";
 
 export default class NotesController {
     async index(request, response){
-        const {user_id} = request.params;
+        const user_id = request.user.id;
 
         const Tnotes = () =>  knex('MovieNotes');
         const Ttags = () =>  knex('MovieTags');
@@ -39,8 +39,8 @@ export default class NotesController {
 
     }
     async create(request, response){
-        const {user_id} = request.params; 
-        const {id, title, description, rating} = request.body;
+        const user_id = request.user.id; 
+        const {title, description, rating} = request.body;
         
         const Tnotes = () =>  knex('MovieNotes');
         const Tusers = () =>  knex('Users');
