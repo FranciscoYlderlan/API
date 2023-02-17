@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import authConfigs from "../configs/auth.js";
+import AppError from "../utils/AppError.js";
 
 export default function ensureAuthentication(request, response, next) {
     const authHeader = request.headers.authorization;
