@@ -18,7 +18,7 @@ const avatarUserController = new AvatarUserController();
 // usersRoutes.get("/:id", usersController.show);
 usersRoutes.post("/", usersController.create);
 usersRoutes.put("/",ensureAuthentication,usersController.update);
-usersRoutes.put("/avatar",ensureAuthentication, upload.single("avatar"), avatarUserController.update);
+usersRoutes.patch("/avatar",ensureAuthentication, upload.single("avatar"), avatarUserController.update);
 // usersRoutes.delete("/:id", usersController.delete);
 
 export default usersRoutes;

@@ -13,7 +13,7 @@ export class DiskStorage {
         try {
           await fs.promises.stat(filepath);  
         } catch (error) {
-            console.log("Falha ao deletar arquivo: ", error);
+            console.log("Falha ao procurar arquivo: ", error);
         }
         await fs.promises.unlink(filepath);
     }

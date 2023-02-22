@@ -16,7 +16,7 @@ export default class AvatarUserController {
 
         if(user.avatar) await diskStorage.deleteFile(user.avatar);
 
-        await diskStorage.saveFile(user.avatar);
+        await diskStorage.saveFile(filename);
 
         user.avatar = filename;
         
