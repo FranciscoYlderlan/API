@@ -2,9 +2,15 @@ import { Router } from "express"
 import UsersController from "../controllers/UsersController.js";
 import AvatarUserController from "../controllers/AvatarUserController.js";
 import ensureAuthentication from "../middlewares/ensureAuthentication.js";
+
 import multer from "multer";
+
+import uploadConfigs from "../configs/uploads.js";
+
 const usersRoutes = Router();
 const usersController = new UsersController();
+
+const upload = multer(uploadConfigs.MULTER);
 
 const avatarUserController = new AvatarUserController();
 
@@ -12,7 +18,7 @@ const avatarUserController = new AvatarUserController();
 // usersRoutes.get("/:id", usersController.show);
 usersRoutes.post("/", usersController.create);
 usersRoutes.put("/",ensureAuthentication,usersController.update);
-usersRoutes.put("/avatar",ensureAuthentication,uploads.single("avatar"),avatarUsersController.update);
+usersRoutes.put("/avatar",ensureAuthentication, upload.single("avatar"), avatarUserController.update);
 // usersRoutes.delete("/:id", usersController.delete);
 
 export default usersRoutes;
