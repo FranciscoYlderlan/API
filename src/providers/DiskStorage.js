@@ -9,7 +9,7 @@ export class DiskStorage {
         )
     }
     async deleteFile(filename){
-        const filepath = path.resolve(uploadsConfig.TMP_FOLDER, filename);
+        const filepath = path.resolve(uploadsConfig.UPLOADS_FOLDER, filename);
         try {
           await fs.promises.stat(filepath);  
         } catch (error) {
