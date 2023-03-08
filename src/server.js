@@ -1,12 +1,18 @@
 import AppError from "./utils/AppError.js";
-import express  from "express";
-import 'express-async-errors';
-import routes from "./routes/index.js";
-import sqliteConnection from "./database/sqlite/index.js"; 
 
+import 'express-async-errors';
+import express  from "express";
+import cors from 'cors';
+
+import routes from "./routes/index.js";
+
+import sqliteConnection from "./database/sqlite/index.js"; 
 import uploadConfigs from "./configs/uploads.js";
 
+
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
