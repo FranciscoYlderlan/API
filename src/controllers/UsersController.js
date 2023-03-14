@@ -1,6 +1,7 @@
 import knex from "../database/knex/index.js"
 import {hash, compare} from "bcrypt"
 import AppError from "../utils/AppError.js";
+import dayjs from "dayjs";
 
 export default class UsersController {
     async index(request, response){
@@ -68,13 +69,16 @@ export default class UsersController {
 
         const encryptPassword = await hash(password,8);
 
+        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+
         await Tusers().insert({
             name,
             email,
             password: encryptPassword,
             avatar,
-            updated_at: knex.fn.now(),
-            created_at: knex.fn.now()
+            created_at:now,
+            updated_at:now
+ 
         }).catch(error => console.error(error))
 
         response.status(201).json({});
@@ -104,13 +108,14 @@ export default class UsersController {
         
         if(unavailableEmail) throw new AppError('Email de usuário em uso.');
         
+        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
 
         await Tusers().where({id}).update({
             name: user.name,
             email: user.email,
             password: user.password,
             avatar: user.avatar,
-            updated_at: knex.fn.now()
+            updated_at: now
         }).catch(error => console.error(error))
 
 

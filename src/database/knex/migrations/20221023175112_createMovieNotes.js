@@ -1,5 +1,6 @@
 
 export function up(knex) { 
+
     return knex.schema.createTable('MovieNotes', table => {
         table.increments('id').unsigned().primary();
         table.string('title').notNull();

@@ -1,6 +1,6 @@
 import knex from "../database/knex/index.js"
 import AppError from "../utils/AppError.js";
-
+import dayjs from "dayjs";
 
 export default class NotesController {
     async index(request, response){
@@ -55,13 +55,15 @@ export default class NotesController {
 
         if(movieRegistred) throw new AppError('Este título já foi cadastrado.');
 
+        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+
         await Tnotes().insert({
             title,
             description,
             rating,
             user_id,
-            created_at: knex.fn.now(),
-            updated_at: knex.fn.now()
+            created_at: now,
+            updated_at: now
         });
         response.status(200).json({})
 
@@ -78,11 +80,13 @@ export default class NotesController {
         note.description = description ?? note.description;
         note.rating = rating ?? note.rating;
 
+        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+
         await Tnotes().where({id}).update({
             title: note.title,
             description: note.description,
             rating: note.rating,
-            updated_at: knex.fn.now()
+            updated_at: now
         }).catch(error => console.error(error));
 
         response.status(200).json({});
