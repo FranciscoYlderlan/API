@@ -30,7 +30,7 @@ export default class SessionsController {
             expiresIn
         })
         
-        response.status(200).json({...user,token})
+        response.status(200).json({user,token})
 
     }
 }
