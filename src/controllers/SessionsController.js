@@ -6,6 +6,7 @@ import authConfigs from "../configs/auth.js"
 
 export default class SessionsController {
     async create (request, response) {
+
         const { password, email } = request.body;
 
         const Tusers = () => knex('Users');
@@ -29,8 +30,7 @@ export default class SessionsController {
             subject: String(user.id),
             expiresIn
         })
-        
-        response.status(200).json({user,token})
-
+        response.status(200).json({user,token})    
+    
     }
 }

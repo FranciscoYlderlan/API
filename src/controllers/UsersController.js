@@ -85,10 +85,13 @@ export default class UsersController {
     }
     async update(request, response){
         const id = request.user.id;
+        
         const {password, newPassword, name, email, avatar} = request.body;
+
         const Tusers = () => knex("Users");
 
         const user = await Tusers().where({id}).first();
+
         if(!user) throw new AppError('Usuário não cadastrado.');
         
         user.name = name ?? user.name;
