@@ -22,6 +22,6 @@ export default class AvatarUserController {
         
         await Tusers().where({id}).update(user).catch(error => console.error(error));
 
-        response.status(200).json({user})
+        response.status(200).json(user)
     }
 }
