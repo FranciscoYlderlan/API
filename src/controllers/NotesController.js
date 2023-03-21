@@ -40,8 +40,9 @@ export default class NotesController {
     }
     async create(request, response){
         const user_id = request.user.id; 
-        const {title, description, rating} = request.body;
+        const {title, description, rating, tags} = request.body;
         
+        const Ttags = () =>  knex('MovieTags');
         const Tnotes = () =>  knex('MovieNotes');
         const Tusers = () =>  knex('Users');
 
@@ -57,7 +58,7 @@ export default class NotesController {
 
         const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
 
-        await Tnotes().insert({
+        const [note_id] = await Tnotes().insert({
             title,
             description,
             rating,
@@ -65,6 +66,16 @@ export default class NotesController {
             created_at: now,
             updated_at: now
         });
+        const tagsInsert = tags.map(name => {
+            return {
+                name,
+                note_id
+                
+            }
+        });
+
+        await Ttags().insert(tagsInsert);
+
         response.status(200).json({})
 
     }
