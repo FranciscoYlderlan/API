@@ -76,7 +76,7 @@ export default class NotesController {
 
         await Ttags().insert(tagsInsert);
 
-        response.status(200).json({})
+        response.status(200).json({note_id})
 
     }
     async update(request, response){
