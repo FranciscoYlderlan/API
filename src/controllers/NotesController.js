@@ -10,9 +10,26 @@ export default class NotesController {
         const Tnotes = () =>  knex('MovieNotes');
         const Ttags = () =>  knex('MovieTags');
         
-        const notes = await Tnotes().where({user_id})
-                                    .whereLike('title', `%${search}%`)
-                                    .orWhereLike('description', `%${search}%`);
+        const notes = await Tnotes()
+                            .join('MovieTags', 'MovieNotes.id', 'MovieTags.note_id')
+                            .select("MovieNotes.id", 
+                                    "title", 
+                                    "description", 
+                                    "rating", 
+                                    "user_id", 
+                                    "created_at", 
+                                    "updated_at")
+                            .where({user_id})
+                            .whereLike('title', `%${search}%`)
+                            .orWhereLike('description', `%${search}%`)
+                            .orWhereLike('name', `%${search}%`)
+                            .groupBy("MovieNotes.id", 
+                                    "title", 
+                                    "description", 
+                                    "rating", 
+                                    "user_id", 
+                                    "created_at", 
+                                    "updated_at");
         
         const notesIds = notes.map(note => note.id); 
         
