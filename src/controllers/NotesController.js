@@ -4,12 +4,15 @@ import dayjs from "dayjs";
 
 export default class NotesController {
     async index(request, response){
+        const {search} = request.query;
         const user_id = request.user.id;
 
         const Tnotes = () =>  knex('MovieNotes');
         const Ttags = () =>  knex('MovieTags');
         
-        const notes = await Tnotes().where({user_id});
+        const notes = await Tnotes().where({user_id})
+                                    .whereLike('title', `%${search}%`)
+                                    .orWhereLike('description', `%${search}%`);
         
         const notesIds = notes.map(note => note.id); 
         
