@@ -20,17 +20,19 @@ export default class NotesController {
                                     "created_at", 
                                     "updated_at")
                             .where({user_id})
-                            .whereLike('title', `%${search}%`)
-                            .orWhereLike('description', `%${search}%`)
-                            .orWhereLike('name', `%${search}%`)
-                            .groupBy("MovieNotes.id", 
+                            .where( function () {
+                                this.whereLike('title', `%${search}%`)
+                                this.orWhereLike('description', `%${search}%`)
+                                this.orWhereLike('name', `%${search}%`)
+                            }).groupBy("MovieNotes.id", 
                                     "title", 
                                     "description", 
                                     "rating", 
                                     "user_id", 
                                     "created_at", 
                                     "updated_at");
-        
+
+
         const notesIds = notes.map(note => note.id); 
         
         const tags = await Ttags().whereIn('note_id', notesIds);
