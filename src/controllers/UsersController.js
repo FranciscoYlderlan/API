@@ -69,7 +69,7 @@ export default class UsersController {
 
         const encryptPassword = await hash(password,8);
 
-        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+        const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
         await Tusers().insert({
             name,
@@ -111,7 +111,7 @@ export default class UsersController {
         
         if(unavailableEmail) throw new AppError('Email de usuário em uso.');
         
-        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+        const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
         await Tusers().where({id}).update({
             name: user.name,

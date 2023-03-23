@@ -76,7 +76,7 @@ export default class NotesController {
 
         if(movieRegistred) throw new AppError('Este título já foi cadastrado.');
 
-        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+        const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
         const [note_id] = await Tnotes().insert({
             title,
@@ -111,7 +111,7 @@ export default class NotesController {
         note.description = description ?? note.description;
         note.rating = rating ?? note.rating;
 
-        const now = dayjs().format('DD-MM-YYYY HH:mm:ss');
+        const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
         await Tnotes().where({id}).update({
             title: note.title,
