@@ -26,7 +26,7 @@ export default class UsersController {
             };
         }));
 
-        response.status(200).json(users)
+        return response.status(200).json(users)
     }
     async show(request, response){
         const {id} = request.params;
@@ -54,7 +54,7 @@ export default class UsersController {
         }
 
 
-        response.status(200).json(user)
+        return response.status(200).json(user)
     }
     async create(request, response){
         const {id, name, email, password, avatar} = request.body;
@@ -81,7 +81,7 @@ export default class UsersController {
  
         }).catch(error => console.error(error))
 
-        response.status(201).json({});
+        return response.status(201).json({});
     }
     async update(request, response){
         const id = request.user.id;
@@ -122,7 +122,7 @@ export default class UsersController {
         }).catch(error => console.error(error))
 
 
-        response.status(200).json({})
+        return response.status(200).json({})
     }
     async delete(request, response){
         const {id} = request.params;
@@ -130,7 +130,7 @@ export default class UsersController {
         
         await Tusers().where({id}).delete();
      
-        response.status(200).json({})
+        return response.status(200).json({})
     }
 }
 

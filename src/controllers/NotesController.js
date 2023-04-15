@@ -42,7 +42,7 @@ export default class NotesController {
             tags: tags.filter(tag => tag.note_id == note.id)
         }));
         
-        response.status(200).json(notesWithTags);       
+        return response.status(200).json(notesWithTags);       
     }
     async show(request, response){
         const {id} = request.params
@@ -57,7 +57,7 @@ export default class NotesController {
         note = {...note,
                    tags
                }
-        response.status(200).json(note);
+        return response.status(200).json(note);
 
     }
     async create(request, response){
@@ -98,7 +98,7 @@ export default class NotesController {
 
         await Ttags().insert(tagsInsert);
 
-        response.status(200).json({note_id})
+        return response.status(200).json({note_id})
 
     }
     async update(request, response){
@@ -122,7 +122,7 @@ export default class NotesController {
             updated_at: now
         }).catch(error => console.error(error));
 
-        response.status(200).json({});
+        return response.status(200).json({});
     }
     async delete(request, response){
         const {id} = request.params
@@ -130,6 +130,6 @@ export default class NotesController {
         
         await Tnotes().where({id}).delete();
         
-        response.status(200).json({});
+        return response.status(200).json({});
     }
 }

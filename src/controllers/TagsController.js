@@ -9,7 +9,7 @@ export default class TagsController {
 
         const tags = await Ttags().where({note_id});
 
-        response.status(200).json(tags);    
+        return response.status(200).json(tags);    
     }
     async show(request, response){
         const {id} = request.params;
@@ -17,7 +17,7 @@ export default class TagsController {
 
         const tag = await Ttags().where({id}).first();
 
-        response.status(200).json(tag);
+        return response.status(200).json(tag);
     }
     async create(request, response){
         const {note_id} = request.params;
@@ -37,7 +37,7 @@ export default class TagsController {
             note_id
         });
 
-        response.status(200).json({});
+        return response.status(200).json({});
 
     }
     async update(request, response){
@@ -55,7 +55,7 @@ export default class TagsController {
         await Ttags().where({id}).update({
             name: tag.name
         });
-        response.status(200).json({});
+        return response.status(200).json({});
 
     }
     async delete(request, response){
@@ -64,6 +64,6 @@ export default class TagsController {
 
         await Ttags().where({id}).delete();
         
-        response.status(200).json({});
+        return response.status(200).json({});
     }
 }

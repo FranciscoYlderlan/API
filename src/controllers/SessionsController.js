@@ -30,7 +30,7 @@ export default class SessionsController {
             subject: String(user.id),
             expiresIn
         })
-        response.status(200).json({user,token})    
+        return response.status(200).json({user,token})    
     
     }
 }
