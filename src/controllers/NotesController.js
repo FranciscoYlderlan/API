@@ -1,4 +1,7 @@
 import knex from "../database/knex/index.js"
+import { NoteRepository } from "../repositories/NoteRepository.js";
+import { NoteServices } from "../services/NoteServices.js";
+
 import AppError from "../utils/AppError.js";
 import dayjs from "dayjs";
 
@@ -89,11 +92,11 @@ export default class NotesController {
             created_at: now,
             updated_at: now
         });
+        
         const tagsInsert = tags.map(name => {
             return {
                 name,
                 note_id
-                
             }
         });
 
@@ -105,24 +108,14 @@ export default class NotesController {
     async update(request, response){
         const {id} = request.params; 
         const {title, description, rating} = request.body;
-        const Tnotes = () =>  knex('MovieNotes');
 
-        const note = await Tnotes().where({id}).first();
-        if(!note) throw new AppError('Nota não cadastrada.');
+        const noteRepository = new NoteRepository();
 
-        note.title = title ?? note.title;
-        note.description = description ?? note.description;
-        note.rating = rating ?? note.rating;
+        const notesServices = new NoteServices(noteRepository);
 
-        const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
+        await notesServices.update({id,title,description,rating});
 
-        await Tnotes().where({id}).update({
-            title: note.title,
-            description: note.description,
-            rating: note.rating,
-            updated_at: now
-        }).catch(error => console.error(error));
-
+        
         return response.status(200).json({});
     }
     async delete(request, response){
