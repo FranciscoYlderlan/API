@@ -59,12 +59,12 @@ export default class UsersController {
         return response.status(200).json(user)
     }
     async create(request, response){
-        const {id, name, email, password, avatar} = request.body;
+        const { name, email, password, avatar} = request.body;
         
         const userRepository = new UserRepository();
         const userServices = new UsersServices(userRepository);
         
-        await userServices.create({id, name, email, password, avatar});
+        await userServices.create({ name, email, password, avatar});
         
         return response.status(201).json({});
     }

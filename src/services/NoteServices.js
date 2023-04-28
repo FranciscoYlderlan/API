@@ -5,13 +5,13 @@ import dayjs from "dayjs";
 
 export class NoteServices {
     
-    constructor(Repository){
-        this.Repository = Repository;
+    constructor(repository){
+        this.repository = repository;
     }
 
     async update({id, title, description, rating}) {
         
-        const note = await this.Repository.findById(id);
+        const note = await this.repository.findById(id);
         
         if(!note) throw new AppError('Nota não cadastrada.');
 
@@ -21,7 +21,7 @@ export class NoteServices {
 
         const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
-        const noteUpdated = await this.Repository.update({
+        const noteUpdated = await this.repository.update({
             id,
             title: note.title,
             description: note.description,

@@ -5,17 +5,17 @@ import dayjs from "dayjs";
 
 export class UsersServices {
     
-    constructor(Repository){
-        this.Repository = Repository;
+    constructor(repository){
+        this.repository = repository;
     }
     
-    async create({id, name, email, password, avatar}) {
+    async create({ name, email, password, avatar}) {
         
         if(!name) throw new AppError('Campo nome é obrigatório.');
         if(!email) throw new AppError('Campo email é obrigatório.');
         if(!password) throw new AppError('Campo senha é obrigatório.');
         
-        const existsEmail = await this.Repository.findByEmail(email); 
+        const existsEmail = await this.repository.findByEmail(email); 
         
         if(existsEmail) throw new AppError('Email de usuário em uso.');
 
@@ -23,7 +23,7 @@ export class UsersServices {
 
         const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
 
-        const id_user = await this.Repository.create({
+        const [id] = await this.repository.create({
             name,
             email,
             password: encryptPassword, 
@@ -31,12 +31,12 @@ export class UsersServices {
             created_at: now
         });
         
-        return {id: id_user};
+        return {id};
     }
 
     async update({id, password, newPassword, name, email, avatar}) {
         
-        const user = await this.Repository.findById(id);
+        const user = await this.repository.findById(id);
 
         if(!user) throw new AppError('Usuário não cadastrado.');
         
@@ -58,7 +58,7 @@ export class UsersServices {
         user.password = newPassword? await hash(newPassword,8) : await hash(password,8);
 
         
-        const unavailableEmail = await this.Repository.isUnavailableEmail({id, email});
+        const unavailableEmail = await this.repository.isUnavailableEmail({id, email});
         
         
         if(unavailableEmail) throw new AppError('Email de usuário em uso.');
@@ -66,7 +66,7 @@ export class UsersServices {
         const now = dayjs();//.format('DD-MM-YYYY HH:mm:ss');
         
         
-        const userUpdated = await this.Repository.update(
+        const userUpdated = await this.repository.update(
         {            
             id,
             name: user.name,
@@ -81,7 +81,7 @@ export class UsersServices {
 
     async delete({id}) {
         
-        const user = await this.Repository.delete({id});
+        const user = await this.repository.delete({id});
 
         return user;
     }

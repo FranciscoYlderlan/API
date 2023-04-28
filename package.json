@@ -7,7 +7,8 @@
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.cjs --env production",
     "dev": "nodemon ./src/server.js",
-    "migrate": "npx knex migrate:latest"
+    "migrate": "npx knex migrate:latest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "sqlite3": "^5.1.2"
   },
   "devDependencies": {
+    "jest": "^29.5.0",
     "nodemon": "^2.0.20"
   }
 }
