@@ -8,11 +8,27 @@ export class UserRepositoryInMemory {
         return user;
     }
 
+    async findAllUsers() {
+
+    }
+
     async findByEmail(email) {
 
         const [user] = this.Users.filter(user => user.email = email);
 
         return user;
+    }
+
+    async findTagsByNotes(ids) {
+
+    }
+
+    async findTagsByNote(id) {
+
+    }
+
+    async findNotesByUser(id) {
+
     }
 
     async isUnavailableEmail({id, email}) {
