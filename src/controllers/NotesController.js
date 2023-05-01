@@ -3,16 +3,14 @@ import { NoteServices } from "../services/NoteServices.js";
 
 export default class NotesController {
 
-    constructor() {
-        this.noteRepository = new NoteRepository();
-        this.noteServices = new NoteServices(this.noteRepository);
-    }
-
     async index(request, response){
         const {search} = request.query;
         const user_id = request.user.id;
 
-        const notes = await this.noteServices.index({id: user_id, search});
+        const noteRepository = new NoteRepository();
+        const noteServices = new NoteServices(noteRepository);
+
+        const notes = await noteServices.index({id: user_id, search});
         
         return response.status(200).json(notes);       
     }
@@ -20,7 +18,10 @@ export default class NotesController {
         const {id} = request.params
         const user_id = request.user.id;
         
-        const note = await this.noteServices.show({id, user_id});
+        const noteRepository = new NoteRepository();
+        const noteServices = new NoteServices(noteRepository);
+        
+        const note = await noteServices.show({id, user_id});
 
         return response.status(200).json(note);
 
@@ -29,7 +30,10 @@ export default class NotesController {
         const user_id = request.user.id; 
         const {title, description, rating, tags} = request.body;
         
-        const note_id = this.noteServices.create({user_id, title, description, rating, tags});
+        const noteRepository = new NoteRepository();
+        const noteServices = new NoteServices(noteRepository);
+
+        const note_id = noteServices.create({user_id, title, description, rating, tags});
 
         return response.status(200).json({note_id})
 
@@ -38,14 +42,21 @@ export default class NotesController {
         const {id} = request.params; 
         const {title, description, rating} = request.body;
 
-        await this.notesServices.update({id,title,description,rating});
+        const noteRepository = new NoteRepository();
+        const noteServices = new NoteServices(noteRepository);
+
+        await noteServices.update({id,title,description,rating});
         
         return response.status(200).json({});
     }
     async delete(request, response){
         const {id} = request.params
+
+        const noteRepository = new NoteRepository();
+        const noteServices = new NoteServices(noteRepository);
+
         
-        await this.noteServices.delete({id});
+        await noteServices.delete({id});
         
         return response.status(200).json({});
     }

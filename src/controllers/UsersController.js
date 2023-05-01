@@ -4,28 +4,32 @@ import { UserRepository } from "../repositories/UserRepository.js";
 
 export default class UsersController {
     
-    constructor(){
-        this.userRepository = new UserRepository();
-        this.userServices = new UsersServices(this.userRepository);
-    }
-    
     async index(request, response){
 
-        const users = await this.userServices.index();
+        const userRepository = new UserRepository();
+        const userServices = new UsersServices(userRepository);
+
+        const users = await userServices.index();
         
         return response.status(200).json(users)
     }
     async show(request, response){
         const id = request.user.id;
+
+        const userRepository = new UserRepository();
+        const userServices = new UsersServices(userRepository);
         
-        const user = await this.userServices.show({id});
+        const user = await userServices.show({id});
 
         return response.status(200).json(user)
     }
     async create(request, response){
         const { name, email, password, avatar} = request.body;
+
+        const userRepository = new UserRepository();
+        const userServices = new UsersServices(userRepository);
         
-        await this.userServices.create({ name, email, password, avatar});
+        await userServices.create({ name, email, password, avatar});
         
         return response.status(201).json({});
     }
@@ -34,14 +38,20 @@ export default class UsersController {
         
         const {password, newPassword, name, email, avatar} = request.body;
 
-        await this.userServices.update({id, password, newPassword, name, email, avatar});
+        const userRepository = new UserRepository();
+        const userServices = new UsersServices(userRepository);
+
+        await userServices.update({id, password, newPassword, name, email, avatar});
         
         return response.status(200).json({})
     }
     async delete(request, response){
         const {id} = request.params;
         
-        await this.userServices.delete({id});
+        const userRepository = new UserRepository();
+        const userServices = new UsersServices(userRepository);
+        
+        await userServices.delete({id});
          
         return response.status(200).json({})
     }
