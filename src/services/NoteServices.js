@@ -10,7 +10,7 @@ export class NoteServices {
 
     async index({id, search}) {
 
-        const notes = await this.repository.findByUserAndKeyword(id,search);
+        const notes = await this.repository.findByUserAndKeyword({user_id: id, keyword: search});
 
         const notesIds = notes.map(note => note.id); 
         
@@ -26,7 +26,7 @@ export class NoteServices {
 
     async show({id, user_id}){
 
-        let note = await this.repository.findByUserAndId(id, user_id);
+        let note = await this.repository.findByUserAndId({id, user_id});
         
         if(!note) throw new AppError("Nota não cadastrada.");
         

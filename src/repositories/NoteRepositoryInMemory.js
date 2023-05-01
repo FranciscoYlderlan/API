@@ -33,7 +33,7 @@ export class NoteRepositoryInMemory {
         return note;
     }
 
-    async findByUserAndKeyword(user_id, keyword) {
+    async findByUserAndKeyword({user_id, keyword}) {
 
         return notes;
 

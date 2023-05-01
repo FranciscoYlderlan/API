@@ -49,7 +49,7 @@ export class NoteRepository {
         return note;
     }
 
-    async findByUserAndKeyword(user_id, keyword) {
+    async findByUserAndKeyword({user_id, keyword}) {
         const Tnotes = () =>  knex('MovieNotes');
 
         const notes = await Tnotes()
